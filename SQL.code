@@ -1,0 +1,30 @@
+ create  database view_complex_select;
+ 
+ use view_complex_select;
+ 
+ CREATE TABLE Sales (
+    SaleID INT PRIMARY KEY,
+    ProductName VARCHAR(50),
+    Quantity INT,
+    Price DECIMAL(10,2),
+    SaleDate DATE
+);
+
+
+INSERT INTO Sales (SaleID, ProductName, Quantity, Price, SaleDate) VALUES
+(1, 'Laptop', 2, 55000.00, '2025-08-01'),
+(2, 'Mouse', 5, 500.00, '2025-08-02'),
+(3, 'Keyboard', 3, 1500.00, '2025-08-02'),
+(4, 'Laptop', 1, 55000.00, '2025-08-03');
+
+
+CREATE VIEW ProductSalesSummary AS
+SELECT 
+    ProductName,
+    SUM(Quantity) AS TotalQuantitySold,
+    SUM(Quantity * Price) AS TotalRevenue
+FROM Sales
+GROUP BY ProductName;
+
+SELECT * FROM ProductSalesSummary;
+
